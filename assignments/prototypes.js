@@ -41,7 +41,52 @@
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
+
+function GameObject(gameObjectattributes) {
+  this.createdAt = gameObjectattributes.createdAt; 
+  this.dimensions = gameObjectattributes.dimensions; 
+  
+}
+
+GameObject.prototype.destroy = function() {
+  return `${this.name} was removed from the game.`
+
+}
+
+
+
+function CharacterStats(characterStatsattributes) {
+  this.healthPoints = characterStatsattributes.healthPoints;
+  this.name         = characterStatsattributes.name;
+  GameObject.call(this, characterStatsattributes);
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function () {
+  return `${this.name} took damage`; 
+} 
+
+function Humanoid(humanoidattributes) {
+  this.team     = humanoidattributes.team;
+  this.weapons  = humanoidattributes.weapons;
+  this.language = humanoidattributes.language;
+  CharacterStats.call(this, humanoidattributes);
+  
+}
+
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+
+
+Humanoid.prototype.greet = function() {
+  console.log(`${this.name} offers a greeting in ${this.language}`)
+}
+
+
+
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -92,6 +137,11 @@
     language: 'Elvish',
   });
 
+
+
+
+
+
   console.log(mage.createdAt); // Today's date
   console.log(archer.dimensions); // { length: 1, width: 2, height: 4 }
   console.log(swordsman.healthPoints); // 15
@@ -102,7 +152,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
